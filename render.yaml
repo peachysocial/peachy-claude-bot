@@ -1,0 +1,40 @@
+# Render Blueprint: a background worker and a Postgres database for the bot's
+# encrypted store. Every value is encrypted under PEACHY_BOT_STORE_KEY before
+# it is written; that key and ANTHROPIC_API_KEY are set in Render's dashboard,
+# never in this file.
+services:
+  - type: worker
+    name: peachy-claude-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    # One instance only: one store is one bot device.
+    numInstances: 1
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: peachy-claude-bot-db
+          property: connectionString
+      # Set in the dashboard when Render asks; never in this file.
+      - key: PEACHY_BOT_STORE_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # The bot's one-time Connect code, for its first start. It links the
+      # bot while the store holds none and is ignored after; delete it once
+      # the logs say "Linked ✓".
+      - key: PEACHY_CONNECT_CODE
+        sync: false
+      - key: PEACHY_BOT_ALLOW
+        sync: false
+      - key: CLAUDE_MODEL
+        value: claude-opus-5-5
+      - key: CLAUDE_EFFORT
+        value: low
+
+databases:
+  - name: peachy-claude-bot-db
+    plan: basic-256mb
+    postgresMajorVersion: "16"
+    # Reachable only from your Render services, not from the internet.
+    ipAllowList: []

@@ -1,0 +1,10 @@
+# The image carries code only. Secrets come from the host's secret store, and
+# state from a volume or a database, never from the build context.
+.env
+.env.*
+.peachy-store-key*
+data/
+*.db
+*.db-*
+node_modules/
+.git/

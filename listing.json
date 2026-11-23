@@ -1,0 +1,17 @@
+{
+  "handle": "yourname_claude",
+  "name": "Ask Claude",
+  "tagline": "Answers with Claude, an AI model by Anthropic",
+  "about": "Message me a question, or add me to a group and mention me with @. In a group I receive the messages of members who said OK to me, and I answer only the ones that mention me or start with /ask. Your question, your name and @handle, and my earlier answer when you reply to one go to Anthropic's API to write the answer. Nothing else does.",
+  "commands": [
+    { "name": "ask", "blanks": "<question>", "description": "Ask Claude anything", "worksInDm": true },
+    { "name": "help", "blanks": "", "description": "What this bot does", "worksInDm": true }
+  ],
+  "destination": "Anthropic (Claude API)",
+  "retention": "This bot stores none of your messages and logs no words; its own answers are kept encrypted for 14 days so a phone that missed one can ask again. Anthropic deletes API inputs and outputs within 30 days, unless they are flagged under its Usage Policy (then up to 2 years), a law requires longer, or the operator has a zero data retention agreement.",
+  "policyUrl": "https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data",
+  "grantsRequested": ["post"],
+  "grantsRequired": [],
+  "reach": { "anyone": true, "handles": [], "summary": "Anyone" },
+  "listed": false
+}

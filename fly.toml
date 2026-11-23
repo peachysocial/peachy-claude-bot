@@ -1,0 +1,23 @@
+# Fly.io: one machine with a volume for the bot's encrypted SQLite store.
+# `fly launch --no-deploy --copy-config` names the app; then see README.md.
+app = "my-claude-bot"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PEACHY_BOT_DB = "/data/bot.db"
+
+# The store lives here, encrypted under PEACHY_BOT_STORE_KEY, which is a Fly
+# secret and never on this volume. So is ANTHROPIC_API_KEY.
+[mounts]
+  source = "bot_data"
+  destination = "/data"
+
+# The bot connects out to Peachy and Anthropic and takes no inbound traffic,
+# so there is no [http_service]. Run exactly one machine: one store is one
+# bot device, and the SDK refuses a second process on it.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
