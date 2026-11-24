@@ -162,4 +162,4 @@ store is the bot's identity, and how to rotate or reset keys.
 
 ## License
 
-MIT. See `LICENSE`.
+MIT-0 (MIT No Attribution): copy it into your own bot without keeping a copyright notice. See `LICENSE`.
